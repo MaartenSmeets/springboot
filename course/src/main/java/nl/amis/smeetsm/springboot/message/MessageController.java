@@ -20,13 +20,13 @@ public class MessageController {
 	private MessageService messageService;
 	
     @ApiOperation(value = "View a list messages",response = List.class)
-	@RequestMapping("/messages")
+	@RequestMapping(method=RequestMethod.GET,value="/messages")
 	public List<Message> getAllMessages() {
 		return messageService.getAllMessages();
 	}
 	
     @ApiOperation(value = "Get a message by id",response = Message.class)
-    @RequestMapping("/messages/{id}")
+    @RequestMapping(method=RequestMethod.GET,value="/messages/{id}")
 	public Message getMessage(@PathVariable Long id) {
 		return messageService.getMessage(id);
 	}
@@ -36,6 +36,13 @@ public class MessageController {
 	public void deleteMessage(@PathVariable Long id) {
 		messageService.deleteMessage(id);
 	}
+    
+    @ApiOperation(value = "Delete all messages")
+	@RequestMapping(method=RequestMethod.DELETE,value="/messages")
+	public void deleteMessage() {
+		messageService.deleteMessages();
+	}
+	
 	
     @ApiOperation(value = "Add a message")
 	@RequestMapping(method=RequestMethod.POST,value="/messages")

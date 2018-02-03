@@ -15,6 +15,12 @@ public class Message {
 	private Long timestamp;
 	private String text;
 
+	public Message() {
+		this.timestamp=Instant.now().toEpochMilli();
+		this.text="";
+	}
+
+	
 	public Message(String text) {
 		this.timestamp=Instant.now().toEpochMilli();
 		this.text=text;
