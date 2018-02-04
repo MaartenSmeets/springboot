@@ -26,14 +26,14 @@ public class MessageService {
 		messageRepository.delete(id);
 	}
 
-	public void addMessage(Message message) {
+	public Message addMessage(Message message) {
 		messageRepository.save(message);
-		
+		return message;
 	}
 
-	public void updateMessage(Long id, Message message) {
+	public Message updateMessage(Long id, Message message) {
 		messageRepository.save(message);
-	
+		return message;
 	}
 
 	public void deleteMessages() {

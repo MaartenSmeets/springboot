@@ -46,14 +46,14 @@ public class MessageController {
 	
     @ApiOperation(value = "Add a message")
 	@RequestMapping(method=RequestMethod.POST,value="/messages")
-	public void addMessage(@RequestBody Message Message) {
-		messageService.addMessage(Message);
+	public Message addMessage(@RequestBody Message Message) {
+		return messageService.addMessage(Message);
 	}
 
     @ApiOperation(value = "Update a message")
 	@RequestMapping(method=RequestMethod.PUT,value="/messages/{id}")
-	public void addMessage(@RequestBody Message Message,@PathVariable Long id) {
-		messageService.updateMessage(id,Message);
+	public Message addMessage(@RequestBody Message Message,@PathVariable Long id) {
+		return messageService.updateMessage(id,Message);
 	}
 	
 }
