@@ -12,6 +12,10 @@ public class Message {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	private Long timestamp;
 	private String text;
 
@@ -47,8 +51,9 @@ public class Message {
 	
 	@Override
     public String toString() {
-        return String.format(
-                "Message[id=%d, text='%s', timestamp=%d]",
-                id, text, this.timestamp);
+		
+		return String.format(
+                "{\"id\":%d, \"text\":'%s', \"timestamp\":%d}",
+                id, text, timestamp);
     }
 }

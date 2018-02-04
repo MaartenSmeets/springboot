@@ -28,7 +28,7 @@ public class Receiver {
   @KafkaListener(topics = "${kafka.topic.boot}")
   public void receive(ConsumerRecord<?, ?> consumerRecord) {
     LOGGER.info("received payload='{}'", consumerRecord.toString());
-    messageController.addMessage(new Message(consumerRecord.value().toString()));
+    //messageController.addMessage(new Message(consumerRecord.value().toString()));
     latch.countDown();
   }
 }
