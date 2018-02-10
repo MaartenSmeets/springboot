@@ -1,5 +1,6 @@
-package nl.amis.smeetsm.springboot.message;
+package nl.amis.smeetsm.springboot.redis;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -11,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import nl.amis.smeetsm.springboot.message.Message;
 
 @RestController
 @Api(value="messages", description="Operations pertaining to messages")
@@ -25,13 +29,13 @@ public class RedisMessageController {
 	
     @ApiOperation(value = "View a list messages",response = List.class)
 	@RequestMapping(method=RequestMethod.GET,value="/redismessages")
-	public List<Message> getAllMessages() {
+	public List<Message> getAllMessages() throws JsonProcessingException, IOException {
 		return redisMessageService.getAllMessages();
 	}
 	
     @ApiOperation(value = "Get a message by id",response = Message.class)
     @RequestMapping(method=RequestMethod.GET,value="/redismessages/{id}")
-	public Message getMessage(@PathVariable Long id) {
+	public Message getMessage(@PathVariable Long id) throws JsonProcessingException, IOException {
 		return redisMessageService.getMessage(id);
 	}
 	

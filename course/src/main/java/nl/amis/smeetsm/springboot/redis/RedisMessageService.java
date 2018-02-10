@@ -1,12 +1,15 @@
-package nl.amis.smeetsm.springboot.message;
+package nl.amis.smeetsm.springboot.redis;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import nl.amis.smeetsm.springboot.redis.RedisRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import nl.amis.smeetsm.springboot.message.Message;
 
 @Service
 public class RedisMessageService {
@@ -14,20 +17,11 @@ public class RedisMessageService {
 	@Autowired
 	private RedisRepository redisRepository;
 	
-	public List<Message> getAllMessages() {
-		List<Message> messages = new ArrayList<>();
-		Message message;
-		Long id;
-		for (Object object : redisRepository.findAllMessages().keySet()) {
-			id = (Long) object;
-			message=new Message(object.toString());
-			message.setId(id);
-			messages.add(message);
-		}
-		return messages;
+	public List<Message> getAllMessages() throws JsonProcessingException, IOException {
+		return redisRepository.findAllMessages();
 	}
 
-	public Message getMessage(Long id) {
+	public Message getMessage(Long id) throws JsonProcessingException, IOException {
 		return redisRepository.findMessage(id);
 	}
 
