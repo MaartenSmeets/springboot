@@ -1,0 +1,14 @@
+{
+  "memory": "1G",
+  "instances": 1,
+  "services": [
+    {
+      "name": "test-cache",
+      "type": "caching"
+    }
+  ],
+  "environment": {
+    "CACHING_PROTOCOL": "GRPC",
+    "EXPIRY": "10"
+  }
+}
