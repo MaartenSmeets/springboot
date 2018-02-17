@@ -8,6 +8,5 @@ public class AccsCacheSampleApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AccsCacheSampleApplication.class, args);
-		
 	}
 }
