@@ -12,14 +12,18 @@ import com.oracle.cloud.cache.basic.CacheLoader;
 
 import nl.amis.smeetsm.springboot.AccsCacheSampleApplication;
 
+@Component
 public class PersonLoader implements CacheLoader<Person> {
 
 	private static final Logger log = LoggerFactory.getLogger(PersonLoader.class);
 	
+	@Autowired
+	PersonSlowRepositoryImpl personSlowRepository;
+	
 	@Override
 	public Person load(String id) {
 		log.info("Load called with "+id);
-		return new Person(Long.valueOf(id),"No Person");		
+		return personSlowRepository.findPerson(Long.valueOf(id));
 	}
 
 }

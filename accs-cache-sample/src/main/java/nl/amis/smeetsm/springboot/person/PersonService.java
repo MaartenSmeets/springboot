@@ -17,9 +17,12 @@ public class PersonService {
 	@Autowired
 	private PersonCacheRepositoryImpl personRepository;
 	
+	@Autowired
+	private PersonSlowRepositoryImpl personSlowRepository;
+	
 	public List<Person> getAllPersons() {
 		log.info("getAllPersons called");
-		return personRepository.findAllPersons();
+		return personSlowRepository.findAllPersons();
 	}
 
 	public Person getPerson(Long id) {
@@ -29,33 +32,32 @@ public class PersonService {
 
 	public void deletePerson(Long id) {
 		log.info("deletePerson called with: "+id.toString());
+		personSlowRepository.delete(id);
 		personRepository.delete(id);
 	}
 
 	public Person addPerson(Person person) {
 		log.info("addPerson called with: "+person.toString());
+		personSlowRepository.add(person);
 		personRepository.add(person);
 		return person;
 	}
 
 	public Person updatePerson(Long id, Person person) {
 		log.info("updatePerson called with: "+person.toString());
+		personSlowRepository.update(person);
 		personRepository.update(person);
 		return person;
 	}
 
 	public void deletePersons() {
 		log.info("deletePersons called");
+		personSlowRepository.deleteAll();
 		personRepository.deleteAll();
 	}
 
 	public CacheMetrics getMetrics() {
 		log.info("getMetrics called");
 		return personRepository.getMetrics();
-	}
-
-	public void setCache(PersonCache personCache) {
-		log.info("setCache called");
-		personRepository.setCache(personCache);
 	}
 }

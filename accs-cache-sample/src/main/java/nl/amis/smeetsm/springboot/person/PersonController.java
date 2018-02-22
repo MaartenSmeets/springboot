@@ -27,20 +27,6 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 
-	//below needs PostConstruct since @Autowired not processed yet when constructor executed
-	@PostConstruct
-	private void init() {
-		log.info("Init called");
-		PersonCache personCache = PersonCache.getInstance();
-		if (personCache == null) {
-			log.error("personCache is null");
-		}
-		if (personService == null) {
-			log.error("personService is null");
-		}
-		personService.setCache(PersonCache.getInstance());
-	}
-	
 	@ApiOperation(value = "View a list persons",response = List.class)
 	@RequestMapping(method=RequestMethod.GET,value="/persons")
 	public List<Person> getAllPersons() {
