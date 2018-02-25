@@ -1,5 +1,7 @@
 package nl.amis.smeetsm.springboot.config;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -33,21 +35,23 @@ public class SwaggerConfig {
 	
 	@Bean
     public Docket productApi() {
-    	String hostname = Optional.ofNullable(System.getenv("HOSTNAME")).orElse("localhost");
+    	
     	String port="";
+    	String hostname="";
     	Set<String> protocols = new HashSet<String>();
-    	if (System.getenv("PORT") != null) {
-    		//Running on ACCS
-    		log.info("Swagger using URL: ");
-    		port="443";
-    		protocols.add("https");
-    		log.info("Swagger using URL: https://"+hostname+":"+port);
-    		
-    	} else {
+		try {
+			//If this works, you're very likely running on ACCS
+			URL pubURL = new URL(System.getenv("ORA_APP_PUBLIC_URL"));
+    		port=String.valueOf(pubURL.getPort());
+    		protocols.add(pubURL.getProtocol());
+    		hostname=pubURL.getHost();
+    		log.info("Swagger using URL: "+pubURL.toString());
+		} catch (MalformedURLException e) {
     		//Running locally
     		port=this.port;
+    		hostname="localhost";
     		protocols.add("http");
-    		log.info("Swagger using URL: http://"+hostname+":"+port);
+    		log.info("Swagger using URL: http://localhost:"+port);
     	}
     	
     	return new Docket(DocumentationType.SWAGGER_2)
