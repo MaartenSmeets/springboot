@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Singleton;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,7 @@ import com.oracle.cloud.cache.basic.options.Expiry;
 import com.oracle.cloud.cache.basic.options.Transport;
 import com.oracle.cloud.cache.metrics.CacheMetrics;
 
-@Repository
+@Repository("CacheRepository")
 public class PersonCacheRepositoryImpl implements PersonRepository {
 
 	private final Logger log = LoggerFactory.getLogger(PersonCacheRepositoryImpl.class);
@@ -30,8 +28,9 @@ public class PersonCacheRepositoryImpl implements PersonRepository {
 	@Autowired
 	private PersonSerializer personSerializer;
 	
-	private final String CACHE_NAME = "test-cache";
+	private final String CACHE_NAME = "TestCache";
 	private Cache<Person> CACHE;
+
 	
 	@PostConstruct
 	public void init() {
@@ -44,7 +43,7 @@ public class PersonCacheRepositoryImpl implements PersonRepository {
 			log.error("personSerializer null!");
 		}
 		
-		String protocolName = Optional.ofNullable(System.getenv("CACHING_PROTOCOL")).orElse("REST");
+		String protocolName = Optional.ofNullable(System.getenv("CACHING_PROTOCOL")).orElse("GRPC");
 		log.info("Protocol - " + protocolName);
 
 		String port = protocolName.equals("REST") ? "8080" : "1444";

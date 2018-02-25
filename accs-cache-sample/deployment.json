@@ -3,7 +3,7 @@
   "instances": 1,
   "services": [
     {
-      "name": "test-cache",
+      "name": "TestCache",
       "type": "caching"
     }
   ],

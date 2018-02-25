@@ -7,7 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-@Repository
+import com.oracle.cloud.cache.metrics.CacheMetrics;
+
+@Repository("SlowRepository")
 public class PersonSlowRepositoryImpl implements PersonRepository {
 	private static final Logger log = LoggerFactory.getLogger(PersonSlowRepositoryImpl.class);
 	private static final long WAITTIME = 2000;
@@ -84,6 +86,11 @@ public class PersonSlowRepositoryImpl implements PersonRepository {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public CacheMetrics getMetrics() {
+		throw new UnsupportedOperationException();
 	}
 
 }
