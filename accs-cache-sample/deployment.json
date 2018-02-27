@@ -3,12 +3,12 @@
   "instances": 1,
   "services": [
     {
-      "name": "TestCache",
+      "name": "TestCache2",
       "type": "caching"
     }
   ],
   "environment": {
-    "CACHING_PROTOCOL": "GRPC",
+    "CACHING_PROTOCOL": "REST",
     "EXPIRY": "10"
   }
 }

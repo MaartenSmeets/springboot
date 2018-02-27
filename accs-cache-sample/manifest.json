@@ -3,6 +3,7 @@
       "majorVersion": "8"
   },
   "command": "java -jar accs-cache-sample.jar --server.port=$PORT --server.address=$HOSTNAME",
+  "isClustered" : "true",
   "release": {
     "version": "1.0.0"
   }
