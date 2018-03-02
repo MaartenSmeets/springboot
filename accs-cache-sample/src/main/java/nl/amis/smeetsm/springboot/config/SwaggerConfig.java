@@ -25,7 +25,7 @@ import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration
 
 @Configuration
 @EnableSwagger2
-@Import(BeanValidatorPluginsConfiguration.class)
+@Import(BeanValidatorPluginsConfiguration.class) // for JSR 303 annotations like NotNull in entities
 public class SwaggerConfig {
     
 	private static final Logger log = LoggerFactory.getLogger(SwaggerConfig.class);
