@@ -33,29 +33,28 @@ public class SwaggerConfig {
 	@Value("${server.port}")
 	private String port;
 	
-	@Bean
-    public Docket productApi() {
-    	
-    	String port="";
-    	String hostname="";
-    	Set<String> protocols = new HashSet<String>();
+	private URL getURL() throws MalformedURLException {
+    	URL pubURL = null;
 		try {
 			//If this works, you're very likely running on ACCS
-			URL pubURL = new URL(System.getenv("ORA_APP_PUBLIC_URL"));
+			pubURL = new URL(System.getenv("ORA_APP_PUBLIC_URL"));
     		port=String.valueOf(pubURL.getPort());
-    		protocols.add(pubURL.getProtocol());
-    		hostname=pubURL.getHost();
-    		log.info("Swagger using URL: "+pubURL.toString());
 		} catch (MalformedURLException e) {
     		//Running locally
-    		port=this.port;
-    		hostname="localhost";
-    		protocols.add("http");
-    		log.info("Swagger using URL: http://localhost:"+port);
+    		pubURL = new URL("http://localhost:"+port);
     	}
+		log.info("Swagger using URL: "+pubURL.toString());
+		return pubURL;
+	}
+	
+	@Bean
+    public Docket productApi() throws MalformedURLException {
+    	Set<String> protocols = new HashSet<String>();
+    	URL pubURL = this.getURL();
+    	protocols.add(pubURL.getProtocol());
     	
     	return new Docket(DocumentationType.SWAGGER_2)
-        		.host(hostname+":"+port)
+        		.host(pubURL.getHost()+":"+String.valueOf(pubURL.getPort()))
         		.protocols(protocols)
                 .select()                 .apis(RequestHandlerSelectors.basePackage("nl.amis.smeetsm.springboot.person"))
                 .paths(PathSelectors.regex("/.*persons.*"))
