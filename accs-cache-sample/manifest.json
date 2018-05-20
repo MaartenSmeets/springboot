@@ -2,7 +2,7 @@
   "runtime": {
       "majorVersion": "8"
   },
-  "command": "java -jar accs-cache-sample.jar --server.port=$PORT --server.address=$HOSTNAME",
+  "command": "java -jar accs-cache-sample.jar --server.port=$PORT",
   "isClustered" : "true",
   "release": {
     "version": "1.0.0"
