@@ -2,7 +2,7 @@
   "runtime": {
       "majorVersion": "9"
   },
-  "command": "java -jar accs-cache-sample.jar --server.port=$PORT",
+  "command": "java -jar accs-cache-sample30.jar --server.port=$PORT --add-modules java.xml.bind",
   "isClustered" : "true",
   "release": {
     "version": "1.0.0"

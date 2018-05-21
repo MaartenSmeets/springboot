@@ -28,7 +28,7 @@ public class PersonCacheRepositoryImpl implements PersonRepository {
 	@Autowired
 	private PersonSerializer personSerializer;
 	
-	private final String CACHE_NAME = "TestCache";
+	private final String CACHE_NAME = "TestCache2";
 	private Cache<Person> CACHE;
 
 	
@@ -43,7 +43,7 @@ public class PersonCacheRepositoryImpl implements PersonRepository {
 			log.error("personSerializer null!");
 		}
 		
-		String protocolName = Optional.ofNullable(System.getenv("CACHING_PROTOCOL")).orElse("GRPC");
+		String protocolName = Optional.ofNullable(System.getenv("CACHING_PROTOCOL")).orElse("REST");
 		log.info("Protocol - " + protocolName);
 
 		String port = protocolName.equals("REST") ? "8080" : "1444";
