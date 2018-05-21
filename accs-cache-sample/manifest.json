@@ -1,6 +1,6 @@
 {
   "runtime": {
-      "majorVersion": "8"
+      "majorVersion": "9"
   },
   "command": "java -jar accs-cache-sample.jar --server.port=$PORT",
   "isClustered" : "true",
